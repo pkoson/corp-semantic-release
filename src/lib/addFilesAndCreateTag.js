@@ -11,7 +11,9 @@ module.exports = function addFilesAndCreateTag(newVersion, mockPush) {
   terminateProcess(code);
 
   // ###### Commit files #####
-  code = shell.exec('git commit -m "chore(release): ' + newVersion + ' [ci skip] ***NO_CI***"').code;
+  code = shell.exec(
+    'git commit -m "chore(release): ' + newVersion + ' [ci skip] ***NO_CI***"'
+  ).code;
   terminateProcess(code);
 
   // ###### TAG NEW VERSION #####
@@ -22,7 +24,7 @@ module.exports = function addFilesAndCreateTag(newVersion, mockPush) {
   // ###### PUSH CHANGES #####
   log.info('>>...and push to remote...');
   if (mockPush === undefined) {
-    code = shell.exec('git push && git push --tags').code;
+    code = shell.exec('git push --tags').code;
   } else {
     log.info(`mocking git push with return code ${mockPush}`);
     code = mockPush;
